@@ -1,26 +1,27 @@
 {
-  "name": "botkit-starter-slack",
-  "version": "0.0.2",
-  "description": "A starter kit for building a custom Slack bot with Botkit Studio",
+  "name": "gordify",
+  "version": "0.0.0",
+  "description": "A chatbot for eat-out lovers",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
     "botkit": "^0.6.7",
     "botkit-storage-mongo": "^1.0.6",
-    "botkit-studio-metrics": "^0.0.2",
     "cookie-parser": "^1.4.3",
     "debug": "^2.3.3",
     "express": "^4.14.0",
     "express-hbs": "^1.0.4",
-    "node-env-file": "^0.1.8",
     "querystring": "^0.2.0",
-    "request": "^2.79.0",
-    "wordfilter": "^0.2.6"
+    "request": "^2.79.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "botkit-testing": "^0.1.5",
+    "node-env-file": "^0.1.8"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/howdyai/botkit-starter-slack.git"
@@ -32,8 +33,9 @@
   "keywords": [
     "bots",
     "chatbots",
-    "slack"
+    "slack",
+    "gordify"
   ],
-  "author": "ben@howdy.ai",
+  "author": "anyelinamoreno@gmail.com",
   "license": "ISC"
 }
