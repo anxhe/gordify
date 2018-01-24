@@ -3,7 +3,6 @@ var debug = require('debug')('botkit:onboarding');
 module.exports = function(controller) {
 
     controller.on('onboard', function(bot) {
-
         debug('Starting an onboarding experience!');
 
         bot.startPrivateConversation({user: bot.config.createdBy},function(err,convo) {
@@ -14,5 +13,5 @@ module.exports = function(controller) {
             convo.say('You must now /invite me to a channel so that I can be of use!');
           }
         });
-    }
+    })
 }
