@@ -3,7 +3,8 @@ if (process.env.NODE_ENV != 'production') {
   env(__dirname + '/.env');
 }
 
-if (!process.env.clientId || !process.env.clientSecret || !process.env.PORT) {
+if (!process.env.clientId || !process.env.clientSecret) {
+  console.error('Is necessary clientId and clientSecret')
   process.exit(1);
 }
 
