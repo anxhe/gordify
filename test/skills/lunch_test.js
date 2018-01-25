@@ -131,4 +131,61 @@ describe('Lunch', () => {
 
   });
 
+  describe('when someone says gordify stop', () => {
+
+    it('and there is an active plan, it groups people', () => {
+      let lunchPlanId = `lunchs-${new Date().toLocaleDateString()}`;
+      this.bot.botkit.storage.lunchplans.save({
+        id: lunchPlanId,
+        active: true,
+        participants: [
+          'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
+        ]
+      });
+
+      let message = {
+        user: 'A',
+        channel: 'lunchs',
+        type: 'direct_mention',
+        messages: [{
+          text: 'stop',
+          isAssertion: true
+        }]
+      }
+
+      return this.bot.usersInput([message])
+        .then((reply) => {
+          expect(reply.text).to.match(/Grupo 1: (.,){4}/);
+          expect(reply.text).to.match(/Grupo 2: (.,){4}/);
+        })
+    });
+
+    it('and there is an active plan, it assigns group leaders', () => {
+      let lunchPlanId = `lunchs-${new Date().toLocaleDateString()}`;
+      this.bot.botkit.storage.lunchplans.save({
+        id: lunchPlanId,
+        active: true,
+        participants: [
+          'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
+        ]
+      });
+
+      let message = {
+        user: 'A',
+        channel: 'lunchs',
+        type: 'direct_mention',
+        messages: [{
+          text: 'stop',
+          isAssertion: true
+        }]
+      }
+
+      return this.bot.usersInput([message])
+        .then((reply) => {
+          expect(reply.text).to.match(/(Líder: (.)*)*2/);
+        })
+    })
+
+  });
+
 });

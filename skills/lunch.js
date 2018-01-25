@@ -36,4 +36,31 @@ module.exports = (controller) => {
       .catch(err => console.log(err));
   });
 
+  controller.hears('stop', 'direct_mention', (bot, message) => {
+    const id = `${message.channel}-${new Date().toLocaleDateString()}`;
+    controller.storage.lunchplans.get(id)
+      .then((lunchPlan)=> {
+        lunchPlan.active = false
+        controller.storage.lunchplans.save(lunchPlan);
+        let people = lunchPlan.participants
+        people.sort(()=> {return Math.random() - 0.5})
+        let size = people.length
+        let groupCount = Math.ceil(size/7);
+        let groupSize = Math.ceil(size/groupCount);
+        let groups = [];
+
+        for (let i = 0; i < groupCount; i++) {
+          groups[i] = people.splice(0, groupSize);
+        }
+        let reply = '';
+        for (group of groups) {
+          let numGroup = groups.indexOf(group)+1
+          let numRandom = group[Math.floor(Math.random()*(group.length))];
+          reply += `Grupo ${numGroup}: ${group}\nLíder: ${numRandom}\n\n`;
+        }
+        bot.reply(message, reply);
+      })
+      .catch(err => console.log(err));
+  });
+
 }
