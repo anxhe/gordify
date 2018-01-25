@@ -59,4 +59,76 @@ describe('Lunch', () => {
       })
     })
   });
+
+  describe('when someone says gordify yo', () => {
+    it('and there is no plan', () => {
+      let message = {
+        user: 'A',
+        channel: 'lunchs',
+        type: 'direct_mention',
+        messages: [{
+          text: 'yo',
+          isAssertion: true
+        }]
+      }
+      return this.bot.usersInput([message])
+      .then((reply) => {
+        expect(reply.text).to.be('Aún no hay ningún plan activo');
+      })
+    })
+
+    it('and there is a plan, it includes requester in the plan', () => {
+      let lunchPlanId = `lunchs-${new Date().toLocaleDateString()}`;
+      this.bot.botkit.storage.lunchplans.save({
+        id: lunchPlanId,
+        active: true,
+        participants: []
+      });
+
+      let message = {
+        user: 'A',
+        channel: 'lunchs',
+        type: 'direct_mention',
+        messages: [{
+          text: 'yo',
+          isAssertion: true
+        }]
+      }
+
+      return this.bot.usersInput([message]).then((reply) => {
+        expect(reply.text).to.be(`Apuntado <@${message.user}> :wink:`);
+        this.bot.botkit.storage.lunchplans.get(lunchPlanId)
+          .then(lunchPlan =>{
+            expect(lunchPlan.participants).to.contain('<@A>');
+          })
+          .catch(error => console.error(error));
+      });
+    });
+
+    it('and plan is not active', () => {
+      let lunchPlanId = `lunchs-${new Date().toLocaleDateString()}`;
+      this.bot.botkit.storage.lunchplans.save({
+        id: lunchPlanId,
+        active: false,
+        participants: []
+      });
+
+      let message = {
+        user: 'A',
+        channel: 'lunchs',
+        type: 'direct_mention',
+        messages: [{
+          text: 'yo',
+          isAssertion: true
+        }]
+      }
+
+      return this.bot.usersInput([message])
+        .then((reply) => {
+          expect(reply.text).to.be('El plan no está activo');
+        })
+    });
+
+  });
+
 });
