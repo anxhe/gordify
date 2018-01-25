@@ -19,7 +19,10 @@ var bot_options = {
 };
 
 if (process.env.MONGO_URI) {
-    var mongoStorage = require('botkit-storage-mongo')({mongoUri: process.env.MONGO_URI});
+    var mongoStorage = require('botkit-storage-mongo')({
+      mongoUri: process.env.MONGO_URI,
+      tables: ['lunchplans']
+    });
     bot_options.storage = mongoStorage;
 } else {
     bot_options.json_file_store = __dirname + '/.data/db/'; // store user data in a simple JSON format
