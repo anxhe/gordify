@@ -27,7 +27,7 @@ module.exports = (controller) => {
         if (!lunchPlan) return bot.reply(message, 'Aún no hay ningún plan activo');
         if (!lunchPlan.active) return bot.reply(message, 'El plan no está activo');
 
-        if (lunchPlan.participants.indexOf(message.user) < 0) {
+        if (lunchPlan.participants.indexOf(`<@${message.user}>`) < 0) {
           bot.reply(message, `Apuntado <@${message.user}> :wink:`)
           lunchPlan.participants.push(`<@${message.user}>`);
           controller.storage.lunchplans.save(lunchPlan);
@@ -50,7 +50,7 @@ module.exports = (controller) => {
         let groups = [];
 
         for (let i = 0; i < groupCount; i++) {
-          groups[i] = people.splice(0, groupSize);
+          groups[i] = people.slice(i * groupSize, groupSize * (i+1))
         }
         let reply = '';
         for (group of groups) {
