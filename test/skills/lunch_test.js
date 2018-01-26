@@ -35,7 +35,7 @@ describe('Lunch', () => {
         }]
       }
       return this.bot.usersInput([message]).then((reply) => {
-        expect(reply.text).to.be('Ey, ¿quién va a almorzar hoy?');
+        expect(reply.text).to.be('Ey! who is going to have lunch out today?');
       })
     });
 
@@ -55,7 +55,7 @@ describe('Lunch', () => {
         }]
       }
       return this.bot.usersInput([message]).then((reply) => {
-        expect(reply.text).to.be('Ya hay un plan iniciado :)');
+        expect(reply.text).to.be('There is a plan already :)');
       })
     })
   });
@@ -73,7 +73,7 @@ describe('Lunch', () => {
       }
       return this.bot.usersInput([message])
       .then((reply) => {
-        expect(reply.text).to.be('Aún no hay ningún plan activo');
+        expect(reply.text).to.be('There is no active plan yet');
       })
     })
 
@@ -96,7 +96,7 @@ describe('Lunch', () => {
       }
 
       return this.bot.usersInput([message]).then((reply) => {
-        expect(reply.text).to.be(`Apuntado <@${message.user}> :wink:`);
+        expect(reply.text).to.be(`Pointed <@${message.user}> :wink:`);
         this.bot.botkit.storage.lunchplans.get(lunchPlanId)
           .then(lunchPlan =>{
             expect(lunchPlan.participants).to.contain('<@A>');
@@ -125,7 +125,7 @@ describe('Lunch', () => {
 
       return this.bot.usersInput([message])
         .then((reply) => {
-          expect(reply.text).to.be('El plan no está activo');
+          expect(reply.text).to.be('The plan is not active');
         })
     });
 
@@ -155,8 +155,8 @@ describe('Lunch', () => {
 
       return this.bot.usersInput([message])
         .then((reply) => {
-          expect(reply.text).to.match(/Grupo 1: (.,){4}/);
-          expect(reply.text).to.match(/Grupo 2: (.,){4}/);
+          expect(reply.text).to.match(/Group 1: (.,){4}/);
+          expect(reply.text).to.match(/Group 2: (.,){4}/);
         })
     });
 
@@ -182,7 +182,7 @@ describe('Lunch', () => {
 
       return this.bot.usersInput([message])
         .then((reply) => {
-          expect(reply.text).to.match(/(Líder: (.)*)*2/);
+          expect(reply.text).to.match(/(Leader: (.)*)*2/);
         })
     })
 

@@ -18,7 +18,7 @@ module.exports = {
     for (group of groups) {
       let numGroup = groups.indexOf(group)+1
       let numRandom = group[Math.floor(Math.random()*(group.length))];
-      reply += `Grupo ${numGroup}: ${group}\nLíder: ${numRandom}\n\n`;
+      reply += `Group ${numGroup}: ${group}\nLeader: ${numRandom}\n\n`;
     }
     return reply
   }
