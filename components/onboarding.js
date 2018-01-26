@@ -9,8 +9,8 @@ module.exports = function(controller) {
           if (err) {
             console.log(err);
           } else {
-            convo.say('I am a bot that has just joined your team');
-            convo.say('You must now /invite me to a channel so that I can be of use!');
+            convo.say('Soy un bot que acaba de unirse a su equipo');
+            convo.say('¡Ahora debe / invitarme a un canal para que yo pueda ser útil!');
           }
         });
     })
