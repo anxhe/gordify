@@ -31,6 +31,8 @@ module.exports = (controller) => {
           bot.reply(message, `Apuntado <@${message.user}> :wink:`)
           lunchPlan.participants.push(`<@${message.user}>`);
           controller.storage.lunchplans.save(lunchPlan);
+        } else {
+          bot.reply(message, `Ya te tengo contemplad@ :wink:`)
         }
       })
       .catch(err => console.log(err));
